@@ -3,14 +3,11 @@ from generator.random import random_string
 
 
 def test_project_add(app):
-    app.session.login("administrator", "root")
-
-    old_projects = app.project.get_projects()
-
+    old_projects = app.soap.get_projects()
     project = Project(name=random_string("PN", 20))
-    app.project.create(project)
+    app.soap.create(project)
 
-    new_projects = app.project.get_projects()
+    new_projects = app.soap.get_projects()
     old_projects.append(project)
 
     assert len(old_projects) == len(new_projects)
