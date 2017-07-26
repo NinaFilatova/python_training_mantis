@@ -1,11 +1,12 @@
-import json
-import os
 import pytest
+import json
+import os.path
 from fixture.application import Application
 
 
 fixture = None
 target = None
+
 
 def load_config(file):
     global target
@@ -14,6 +15,7 @@ def load_config(file):
         with open(config_file) as f:
             target = json.load(f)
     return target
+
 
 @pytest.fixture
 def app(request):
@@ -26,10 +28,10 @@ def app(request):
 
 @pytest.fixture(scope="session", autouse=True)
 def stop(request):
-    def fin():
+    def finalizer():
         fixture.session.ensure_logout()
         fixture.destroy()
-    request.addfinalizer(fin)
+    request.addfinalizer(finalizer)
     return fixture
 
 def pytest_addoption(parser):

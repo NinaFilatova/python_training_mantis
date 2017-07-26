@@ -1,14 +1,13 @@
-class Project:
 
-    def __init__(self, name=None, description=None):
+class Project:
+    def __init__(self, name = None):
         self.name = name
-        self.description = description
 
     def __repr__(self):
-        return "%s:%s" % (self.name, self.description)
+        return "%s" % (self.name)
 
     def __eq__(self, other):
-        return self.name == other.name and self.description == other.description
+        return self.name == other.name
 
-    def name(self):
+    def Key(self):
         return self.name
